@@ -32,5 +32,5 @@ Building web applications, REST APIs, and real-time tracking systems in Jakarta.
 ### Recent Commits
 
 <!-- RECENT_COMMITS:START -->
-- Commits will appear here automatically after the first workflow run.
+- No recent public commits in the last 90 days.
 <!-- RECENT_COMMITS:END -->
