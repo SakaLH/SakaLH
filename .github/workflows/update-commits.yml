@@ -1,0 +1,62 @@
+name: Update Recent Commits
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch latest public commits
+        id: commits
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          COMMITS=$(gh api users/SakaLH/events/public | jq -r '
+            [ .[] | select(.type == "PushEvent") | . as $e |
+              .payload.commits[]? |
+              "- [`" + (.sha[0:7]) + "`](https://github.com/" + $e.repo.name + "/commit/" + .sha + ") " +
+              (.message | split("\n")[0]) + " (" + $e.repo.name + ", " + ($e.created_at[0:10]) + ")"
+            ] | .[0:5] | join("\n")
+          ')
+          if [ -z "$COMMITS" ]; then
+            COMMITS="- No recent public commits in the last 90 days."
+          fi
+          {
+            echo "LIST<<EOF"
+            echo "$COMMITS"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Update README.md
+        env:
+          COMMITS: ${{ steps.commits.outputs.LIST }}
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, re
+          readme = pathlib.Path("README.md")
+          text = readme.read_text(encoding="utf-8")
+          commits = os.environ["COMMITS"]
+          updated = re.sub(
+              r"(<!-- RECENT_COMMITS:START -->\n).*?(\n<!-- RECENT_COMMITS:END -->)",
+              rf"\g<1>{commits}\g<2>",
+              text,
+              flags=re.DOTALL,
+          )
+          if updated != text:
+              readme.write_text(updated, encoding="utf-8")
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || (git commit -m "chore: update recent commits" && git push)
