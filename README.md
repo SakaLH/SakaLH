@@ -10,8 +10,8 @@ Building web applications, REST APIs, and real-time tracking systems in Jakarta.
 
 <p>
   <a href="https://github.com/SakaLH"><img src="https://img.shields.io/badge/GitHub-111111?style=flat-square&logo=github&logoColor=FFFFFF" alt="GitHub" /></a>
-  <a href="https://linkedin.com/in/[USERNAME]"><img src="https://img.shields.io/badge/LinkedIn-111111?style=flat-square&logo=linkedin&logoColor=FFFFFF" alt="LinkedIn" /></a>
-  <a href="https://instagram.com/@sa_lakss"><img src="https://img.shields.io/badge/Instagram-111111?style=flat-square&logo=instagram&logoColor=FFFFFF" alt="Instagram" /></a>
+  <a href="https://linkedin.com/in/SakaLaksmanaHarimurti"><img src="https://img.shields.io/badge/LinkedIn-111111?style=flat-square&logo=linkedin&logoColor=FFFFFF" alt="LinkedIn" /></a>
+  <a href="https://instagram.com/sa_lakss"><img src="https://img.shields.io/badge/Instagram-111111?style=flat-square&logo=instagram&logoColor=FFFFFF" alt="Instagram" /></a>
   <a href="mailto:sakaharimurti@gmail.com"><img src="https://img.shields.io/badge/Email-111111?style=flat-square&logo=gmail&logoColor=FFFFFF" alt="Email" /></a>
 </p>
 
